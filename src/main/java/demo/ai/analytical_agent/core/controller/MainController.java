@@ -2,9 +2,9 @@ package demo.ai.analytical_agent.core.controller;
 
 import demo.ai.analytical_agent.core.dto.AnswersDto;
 import demo.ai.analytical_agent.core.dto.ContractDto;
-import demo.ai.analytical_agent.core.service.AnswerService;
 import demo.ai.analytical_agent.core.service.ContractContentService;
 import demo.ai.analytical_agent.core.service.ContractService;
+import demo.ai.analytical_agent.core.service.FileService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -28,7 +28,7 @@ public class MainController {
 
     ContractService contractService;
     ContractContentService contractContentService;
-    AnswerService answerService;
+    FileService fileService;
 
     @GetMapping("contracts/inn/{inn}")
     public ResponseEntity<List<ContractDto>> getContractsByInn(@PathVariable("inn") String inn) {
@@ -49,12 +49,20 @@ public class MainController {
                 .orElseGet(() -> ResponseEntity.noContent().build());
     }
 
-    @PostMapping("answer/save")
+    @PostMapping("answer/save/json")
     public ResponseEntity<UUID> saveAnswer(@RequestBody AnswersDto answers) {
 
         //todo add validation
 
-        return ResponseEntity.ok(answerService.saveAnswers(answers));
+        return ResponseEntity.ok(fileService.saveJson(answers));
+    }
+
+    @PostMapping("answer/save/text")
+    public ResponseEntity<UUID> saveText(@RequestBody String text) {
+
+        //todo add validation
+
+        return ResponseEntity.ok(fileService.saveText(text));
     }
 
     @GetMapping("answer/{answerId}")
@@ -62,7 +70,7 @@ public class MainController {
 
         //todo add validation
 
-        FileSystemResource resource = answerService.getAnswer(answerId);
+        FileSystemResource resource = fileService.getAnswer(answerId);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.CONTENT_TYPE, "application/msword");

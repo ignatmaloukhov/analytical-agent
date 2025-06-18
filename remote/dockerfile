@@ -1,12 +1,10 @@
-FROM openjdk:21-jdk-slim
+FROM openjdk:21-jdk
 
 WORKDIR /app
 
 COPY analytical-agent-0.0.1-SNAPSHOT.jar /app/analytical-agent.jar
 
-COPY /src/main/resources/answers/ /app/answers
-
-VOLUME ["/app/answers"]
+VOLUME ["/app/answers/"]
 
 EXPOSE 9090
 

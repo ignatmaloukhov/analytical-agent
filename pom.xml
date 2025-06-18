@@ -11,6 +11,7 @@
     <groupId>demo.ai</groupId>
     <artifactId>analytical-agent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name>analytical-agent</name>
     <description>AI agent for financial analisys</description>
     <url/>
@@ -98,6 +99,12 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+<!--            <plugin>-->
+<!--                <artifactId>maven-jar-plugin</artifactId>-->
+<!--                <configuration>-->
+<!--                    <outputDirectory>${project.basedir}/remote</outputDirectory>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

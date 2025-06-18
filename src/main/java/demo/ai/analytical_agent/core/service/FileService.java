@@ -26,7 +26,7 @@ import static demo.ai.analytical_agent.core.common.Parameters.FOOTER_MESSAGE;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
-public class AnswerService {
+public class FileService {
 
     ObjectMapper objectMapper;
 
@@ -34,7 +34,7 @@ public class AnswerService {
     @Value("${answers.path:}")
     String answersPath;
 
-    public UUID saveAnswers(AnswersDto answersDto) {
+    public UUID saveJson(AnswersDto answersDto) {
 
         UUID answerId = UUID.randomUUID();
         String fileName = answerId + ".docx";
@@ -74,6 +74,35 @@ public class AnswerService {
         return answerId;
     }
 
+    public UUID saveText(String text) {
+
+        UUID answerId = UUID.randomUUID();
+        String fileName = answerId + ".docx";
+        String filePath = answersPath + fileName;
+
+        try (XWPFDocument doc = new XWPFDocument()) {
+
+            XWPFHeaderFooterPolicy policy = new XWPFHeaderFooterPolicy(doc);
+            XWPFFooter footer = policy.createFooter(XWPFHeaderFooterPolicy.DEFAULT);
+            XWPFParagraph footerParagraph = footer.createParagraph();
+            XWPFRun footerRun = footerParagraph.createRun();
+
+            footerRun.setText(FOOTER_MESSAGE);
+
+            XWPFParagraph questionParagraph = doc.createParagraph();
+            XWPFRun questionRun = questionParagraph.createRun();
+            questionRun.setText(text);
+
+            doc.createParagraph();
+
+            try (FileOutputStream out = new FileOutputStream(filePath)) {
+                doc.write(out);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return answerId;
+    }
 
     public FileSystemResource getAnswer(UUID answersId) {
 
@@ -85,17 +114,6 @@ public class AnswerService {
         return new FileSystemResource(filePath);
     }
 
-
-//    public Optional<FileSystemResource> getAnswer(UUID answerId) {
-//
-//        // todo add validation
-//
-//        String filename = answerId + ".docx";
-//
-//        FileSystemResource resource = new FileSystemResource(answersPath + filename);
-//
-//        return resource;
-//    }
 
 //    public void jsonToDocx(String jsonString) throws IOException {
 //        // Парсим JSON строку в дерево JsonNode

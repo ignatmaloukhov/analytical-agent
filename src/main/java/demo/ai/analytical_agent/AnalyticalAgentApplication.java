@@ -2,7 +2,7 @@ package demo.ai.analytical_agent;
 
 import demo.ai.analytical_agent.core.dto.AnswerDto;
 import demo.ai.analytical_agent.core.dto.AnswersDto;
-import demo.ai.analytical_agent.core.service.AnswerService;
+import demo.ai.analytical_agent.core.service.FileService;
 import demo.ai.analytical_agent.core.service.AttachmentService;
 import demo.ai.analytical_agent.core.service.ContractContentService;
 import demo.ai.analytical_agent.core.service.ContractService;
@@ -12,6 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.List;
+import java.util.UUID;
 
 @SpringBootApplication
 public class AnalyticalAgentApplication implements CommandLineRunner {
@@ -26,7 +27,7 @@ public class AnalyticalAgentApplication implements CommandLineRunner {
     ContractContentService contractContentService;
 
     @Autowired
-    AnswerService answerService;
+    FileService fileService;
 
     public static void main(String[] args) {
         SpringApplication.run(AnalyticalAgentApplication.class, args);
@@ -87,8 +88,10 @@ public class AnalyticalAgentApplication implements CommandLineRunner {
                 
                 """;
 
-        System.out.println("Я сохранил ответы с id=" + answerService.saveAnswers(answers));
+        System.out.println("Я сохранил ответы с id=" + fileService.saveJson(answers));
 
-        System.out.println("Ok");
+        UUID helloId = fileService.saveText("Привет");
+
+        System.out.println("Я записал привет в файл с id=" + helloId);
     }
 }
