@@ -54,6 +54,8 @@ public class MainController {
 
         //todo add validation
 
+        log.info("Вызван контроллер v1/answer/save/json");
+
         return ResponseEntity.ok(fileService.saveJson(answers));
     }
 
@@ -61,6 +63,8 @@ public class MainController {
     public ResponseEntity<UUID> saveText(@RequestBody String text) {
 
         //todo add validation
+
+        log.info("Вызван контроллер v1/answer/save/text");
 
         return ResponseEntity.ok(fileService.saveText(text));
     }

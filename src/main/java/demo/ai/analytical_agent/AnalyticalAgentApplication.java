@@ -38,8 +38,6 @@ public class AnalyticalAgentApplication implements CommandLineRunner {
 
 
         //List<AttachmentDto> att = attachmentService.getAttachmentsByRegNum("1666000863125000021");
-
-
         //contractContentService.extractContractText("1666000863125000021");
 
         AnswerDto answer1 = AnswerDto.builder()
@@ -88,10 +86,12 @@ public class AnalyticalAgentApplication implements CommandLineRunner {
                 
                 """;
 
-        System.out.println("Я сохранил ответы с id=" + fileService.saveJson(answers));
+        //System.out.println("Я сохранил ответы с id=" + fileService.saveJson(answers));
+
+        UUID jsonId = fileService.saveJson(answers);
 
         UUID helloId = fileService.saveText("Привет");
 
-        System.out.println("Я записал привет в файл с id=" + helloId);
+        //System.out.println("Я записал привет в файл с id=" + helloId);
     }
 }

@@ -71,6 +71,7 @@ public class FileService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        log.info("Сохранен файл: " + answersPath + fileName);
         return answerId;
     }
 
@@ -101,6 +102,7 @@ public class FileService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        log.info("Сохранен файл: " + answersPath + fileName);
         return answerId;
     }
 
