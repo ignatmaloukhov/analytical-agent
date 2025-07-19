@@ -1,0 +1,26 @@
+# Сборка приложения
+FROM maven:3.9.0-eclipse-temurin-21 AS build
+
+WORKDIR /app
+
+# Копируем файлы проекта
+COPY pom.xml .
+COPY settings.xml .  # Если нужен custom Maven settings
+COPY . .
+
+# Кэшируем зависимости и билдим все модули с упаковкой
+RUN mvn clean package -DskipTests
+
+# Запускающий слой с java 21
+FROM eclipse-temurin:21-jdk
+
+WORKDIR /app
+
+# Копируем собранный jar (предполагается, что результат в target/ с именем app.jar)
+COPY --from=build /app/modules/module-name/target/*.jar app.jar
+
+# Порт приложения
+EXPOSE 8080
+
+# Запуск Spring Boot приложения
+ENTRYPOINT ["java", "-jar", "app.jar"]
