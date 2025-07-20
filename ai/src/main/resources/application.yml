@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: analytical-agent-ai
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

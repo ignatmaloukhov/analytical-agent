@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: analytical-agent-telegrambot
+
+bot:
+  token: ${BOT_TOKEN}
+  username: analytical_agent_bot
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

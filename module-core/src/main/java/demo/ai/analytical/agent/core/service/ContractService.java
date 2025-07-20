@@ -26,8 +26,7 @@ public class ContractService {
 
         //todo add validation
 
-        String searchContractsByInnUrl = "/epz/contract/search/results.html?&contractStageList_0=on&contractStageList=0" +
-                "&recordsPerPage=_300&supplierTitle=+" + inn;
+        String searchContractsByInnUrl = "/epz/contract/search/results.html?contractStageList_0=on&contractStageList=0&selectedContractDataChanges=ANY&recordsPerPage=_100&supplierTitle=" + inn;
         Optional<InputStream> contentOptional = epzClient.getContentByUrl(searchContractsByInnUrl);
 
         List<ContractDto> contracts = contentOptional
