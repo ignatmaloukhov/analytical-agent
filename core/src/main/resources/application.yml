@@ -1,9 +1,0 @@
-spring:
-  application:
-    name: analytical-agent
-  profiles:
-    active: local
-
-integration:
-  epz:
-    url: https://zakupki.gov.ru
