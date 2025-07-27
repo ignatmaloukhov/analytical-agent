@@ -17,7 +17,13 @@ public enum TelegramBotCommand {
             "Введите команду /inn и ИНН через пробел для поиска всех контрактов, заключенных с данным лицом"),
 
     INN("inn", "Search for contracts by INN",
-                 "ИНН");
+            "Введите ИНН"),
+
+    CONTRACT("contract", "Analyze contract by reg number",
+            "Введите рег номер контракта"),
+
+    STOP("stop", "Stop current tusk",
+            "Завершаю текущую задачу");
 
     String name;
     String description;
